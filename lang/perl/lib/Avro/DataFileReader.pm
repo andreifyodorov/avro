@@ -203,8 +203,8 @@ sub read_block_header {
 
     return unless $datafile->codec eq 'deflate';
     ## we need to read the entire block into memory, to inflate it
-    my $nread = read $fh, my $block, $datafile->{block_size} + MARKER_SIZE
-        or croak "Error reading from file: $!";
+    my $nread = read $fh, my $block, $datafile->{block_size} + MARKER_SIZE;
+    croak "Error reading from file: $!" if $!;
 
     ## remove the marker
     my $marker = substr $block, -(MARKER_SIZE), MARKER_SIZE, '';
